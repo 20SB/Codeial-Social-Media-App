@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
 
 const port = 8000;
 
@@ -12,6 +13,9 @@ const db = require('./config/mongoose');
 // extract style and scripts from subpages into layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
+
+app.use(express.urlencoded());
+app.use(cookieParser());
 
 // inclue static files
 app.use(express.static('./assets'));
