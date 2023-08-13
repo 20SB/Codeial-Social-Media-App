@@ -3,7 +3,7 @@ const app = express();
 
 const port = 8000;
 
-// use express router
+// use express router for home
 app.use('/', require('./routes'));
 
 app.listen(port, function(err){
