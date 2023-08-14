@@ -1,0 +1,11 @@
+
+header div{
+    display: flex;
+}
+header div a{
+    color: black;
+    text-decoration: none;
+}
+.log{
+    gap: 15px;
+}

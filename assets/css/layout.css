@@ -1,6 +1,25 @@
-*{
-    text-align: center;
+* {
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
-header, footer{
-    background-color: aqua;
+body {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+header {
+  background-color: aqua;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: aqua;
+  padding: 10px;
 }

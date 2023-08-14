@@ -1,3 +1,32 @@
+<link rel="stylesheet" href="/css/header.css">
+
 <header>
-    Page Header
+    <div class="page-title">
+        
+        <a href="/"><i class="fa-solid fa-house"></i> Codeial </a>
+        
+    </div>
+    
+    
+  
+
+  <!-- Check if user is authenticated -->
+  <% if(locals.user){ %>
+    <!-- If user is authenticated, show user's name and sign out link -->
+    <div class="user-name">
+        <a href="/users/Sign-in"> <%= user.name %> </a>
+    </div>
+
+    <div class="log">
+        <a href="/users/sign-out">Sign Out</a>
+    </div>
+    
+  <% }else{ %>
+    <!-- If user is not authenticated, show sign in and sign up links -->
+    <div class="log">
+        <a href="/users/Sign-in" id="sign-in-link"> Sign In</a>
+        <a href="/users/Sign-up" id="sign-up-link"> Sign Up</a>
+    </div>
+    
+  <% } %>
 </header>
