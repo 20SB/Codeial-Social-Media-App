@@ -18,6 +18,8 @@ const passportLocal = require('./config/passport-local-strategy');
 // Include the MongoStore for session storage
 const MongoStore = require('connect-mongo');
 
+// const sassMiddleware = require(node-sass-middleware)
+
 // Use middleware to parse URL-encoded data and cookies
 app.use(express.urlencoded());
 app.use(cookieParser());
