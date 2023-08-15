@@ -10,6 +10,8 @@ router.get('/', homeController.home);
 // use express router for users
 router.use('/users', require('./users'));
 
+router.use('/posts', require('./posts'));
+
 // for ant further routes, access from here
 // router.use('/routerName’, require(". /routerfilee));
 
