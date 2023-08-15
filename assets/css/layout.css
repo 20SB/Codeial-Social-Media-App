@@ -1,5 +1,4 @@
 * {
-  text-align: center;
   margin: 0;
   padding: 0;
 }
@@ -7,6 +6,7 @@ body {
   height: 100vh;
   position: relative;
   overflow: hidden;
+  text-align: center;
 }
 header {
   background-color: aqua;

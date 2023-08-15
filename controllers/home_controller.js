@@ -1,9 +1,29 @@
-module.exports.home = function(req,res){
-    // console.log(req.cookies);
-    // res.cookie('user_id', 25);
+const Post = require("../models/post");
 
-    return res.render('home', {
-        title: "Home"
+module.exports.home = function (req, res) {
+  // Post.find({})
+  // .then(posts => {
+  //     return res.render('home', {
+  //         title: "Codeial | Home",
+  //         posts: posts
+  //     });
+  // })
+  // .catch(err => {
+  //     console.log('error in fetching posts:', err);
+  //     // Handle the error in an appropriate way
+  // });
+
+  //   populate the user for each post
+  Post.find({})
+    .populate("user")
+    .then((posts) => {
+      return res.render("home", {
+        title: "Codeial | Home",
+        posts: posts,
+      });
+    })
+    .catch((err) => {
+      console.log("error in fetching posts:", err);
+      // Handle the error in an appropriate way
     });
-    // return res.end('<h1>Hello, This is Home Page...</h1>');
-}
+};
