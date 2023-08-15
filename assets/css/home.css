@@ -1,6 +1,53 @@
-body{
-    background-color: rgb(249 192 164);
-}
 #feed-post{
     text-align: left;
+}
+.post-textarea {
+    padding: 0px 10px;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    scrollbar-width: none;
+  }
+  .post-textarea::-webkit-scrollbar {
+    width: 0; 
+  }
+.post-btn{
+    border-radius: 20px;
+    border: 1px solid black;
+    padding: 1px 5px;
+}
+.post-comments{
+    margin-top: 10px;
+    font-size: 0.8rem;
+}
+.comment-form{
+    width: 100%;
+    display: flex;
+}
+.comment-input{
+    width: auto;
+    height: 10px;
+    font-size: 0.5rem;
+    border-radius: 20px;
+    border: 1px solid gray;
+    padding: 1px 5px;
+}
+.comment-btn{
+    width: auto;
+    height: 14px;
+    font-size: 0.5rem;
+    border-radius: 20px;
+    border: 1px solid black;
+    padding: 1px 5px;
+}
+.comment{
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 5px;
+    width: auto;
+    margin: 2px 0;
+    font-size: 0.7rem;
+    display: inline-block;
+
 }

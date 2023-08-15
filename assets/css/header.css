@@ -3,7 +3,7 @@ header div{
     display: flex;
 }
 header div a{
-    color: black;
+    color: rgb(255, 255, 255);
     text-decoration: none;
 }
 .log{

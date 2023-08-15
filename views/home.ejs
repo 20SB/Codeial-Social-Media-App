@@ -1,54 +1,57 @@
 <link rel="icon" type="image/png" href="/images/home.png" />
 <link rel="stylesheet" href="/css/home.css" />
 
-<h1>Hello, You are on <%= title %> page</h1>
-<h3>Codeial / <%= title %></h3>
-
 <section id="feed-post">
   <h4>Posts</h4>
+
+  <div class="mini-container">
+    <% if(locals.user) { %>
+      <form action="/posts/create" id="new-post-form" method="POST">
+          <textarea
+          name="content"
+          id="new-post-content"
+          cols="30"
+          rows="2"
+          placeholder="What's on your mind, <%= locals.user.name %>? "
+          required
+          class="post-textarea"
+          ></textarea>
+          <input type="submit" value="Post" class="post-btn"/>
+      </form>
+    <% } %>
+  </div>
   
-  <% if(locals.user) { %>
-    <form action="/posts/create" id="new-post-form" method="POST">
-        <textarea
-        name="content"
-        id="new-post-content"
-        cols="30"
-        rows="3"
-        placeholder="Type Here..."
-        required
-        ></textarea>
-        <input type="submit" value="Post" />
-    </form>
-  <% } %>
+  
 
   <div id="posts-list-container">
-    <ul>
+    <ul class="no-bullet-list">
       <% for(post of posts) { %>
-        <li>
+        <li class="post mini-container">
             <p>
-              <%= post.user.name %> 
+              <%= post.user.name %> <hr>
               <%= post.content %>
             </p>
 
             <div class="post-comments">
               <% if(locals.user){ %>
-                <form action="/comments/create" method="post">
-                  <input type="text" name="content" placeholder="Type here to add comment" required>
+                <form action="/comments/create" method="post" class="comment-form">
+                  <input type="text" name="content" placeholder="Write a comment.." required class="comment-input">
                   <input type="hidden" name="post" value="<%= post._id %>">
-                  <input type="submit" value="Add Comment">
+                  <input type="submit" value="Add Comment" class="comment-btn">
                 </form>
               <% } %>
 
               <div class="post-comments-list">
                 <ul id="post-comment-<%= post._id %>">
                   <% for(comment of post.comments) { %>
-                    <p>
-                      <%= comment.content %>
-                      <br>
-                      <small>
+                    <br>
+                    <div class="comment">
+                      <b>
                         <%= comment.user.name %>
-                      </small>
-                    </p>
+                      </b>
+                      <br>
+                      <%= comment.content %>
+                    </div>
                   <% } %>
                 </ul>
               </div>

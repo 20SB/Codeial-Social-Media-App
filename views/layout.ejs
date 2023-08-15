@@ -13,8 +13,11 @@
 </head>
 <body>
     <%- include('_header'); %>
-    <%- body %>
-    <%- include('_footer'); %>
+    <div id="body-container">
+      <%- body %>
+    </div>
+    
+    <!-- <%- include('_footer'); %> -->
     <%- script %>
 </body>
 </html>
