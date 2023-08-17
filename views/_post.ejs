@@ -11,6 +11,17 @@
     </p>
 
     <div class="post-comments">
+
+      <div class="post-comments-list">
+        <ul id="post-comment-<%= post._id %>">
+          <% for (comment of post.comments) { %>
+            <!-- Include a partial template for each comment -->
+            <br>
+            <%- include('_comment') -%>
+          <% } %>
+        </ul>
+      </div>
+
       <!-- Display comment form if the user is authenticated -->
       <% if (locals.user) { %>
         <form action="/comments/create" method="post" class="comment-form">
@@ -23,14 +34,6 @@
         </form>
       <% } %>
 
-      <div class="post-comments-list">
-        <ul id="post-comment-<%= post._id %>">
-          <% for (comment of post.comments) { %>
-            <!-- Include a partial template for each comment -->
-            <br>
-            <%- include('_comment') -%>
-          <% } %>
-        </ul>
-      </div>
+      
     </div>
 </li>

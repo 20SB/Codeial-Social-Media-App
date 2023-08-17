@@ -1,13 +1,14 @@
 #feed-post{
     text-align: left;
+    width: 70%;
+    min-width: 300px;
 }
 .post-textarea {
-    padding: 0px 10px;
+    padding: 5px 15px;
     box-sizing: border-box;
     width: 100%;
     height: auto;
     border-radius: 20px;
-    scrollbar-width: none;
   }
   .post-textarea::-webkit-scrollbar {
     width: 0; 
@@ -17,29 +18,38 @@
     border: 1px solid black;
     padding: 1px 5px;
 }
+.post{
+    font-size: 20px;
+}
 .post-comments{
     margin-top: 10px;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 .comment-form{
+    margin-top: 10px;
     width: 100%;
     display: flex;
 }
 .comment-input{
     width: auto;
-    height: 10px;
-    font-size: 0.5rem;
+    height: 15px;
+    font-size: 0.8rem;
     border-radius: 20px;
     border: 1px solid gray;
-    padding: 1px 5px;
+    padding: 3px 10px;
 }
 .comment-btn{
     width: auto;
-    height: 14px;
-    font-size: 0.5rem;
+    height: 23px;
+    font-size: 1rem;
     border-radius: 20px;
     border: 1px solid black;
-    padding: 1px 5px;
+    padding: 3px 10px;
+    margin-left: 10px;
+}
+.post-comments-list{
+    max-height: 200px;
+    overflow-y: scroll;
 }
 .comment{
     background-color: aliceblue;
@@ -47,7 +57,15 @@
     padding: 5px;
     width: auto;
     margin: 2px 0;
-    font-size: 0.7rem;
+    font-size: 1rem;
     display: inline-block;
 
+}
+
+
+#user-friends{
+    width: 30%;
+    TEXT-ALIGN: left;
+    PADDING-LEFT: 20PX;
+    BOX-SIZING: BORDER-BOX;
 }
