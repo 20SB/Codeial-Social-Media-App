@@ -25,14 +25,18 @@ module.exports.update = function(req, res) {
         // Find the user by their ID and update their information with the data in the request body
         User.findByIdAndUpdate(req.params.id, req.body)
             .then(() => {
+                req.flash('success', 'Updated!');
                 // Redirect back to the previous page after the update
                 return res.redirect('back');
             })
             .catch((err) => {
+                req.flash('error', err);
                 console.log("Error in updating user:", err);
                 // Handle the error in an appropriate way, such as rendering an error page
             });
     } else {
+
+        req.flash('error', 'Unauthorized!');
         return res.status(401).send('Unauthorized');
     }
 }
@@ -63,6 +67,7 @@ module.exports.signIn = function(req, res){
 module.exports.create = async function(req, res) {
     // Check if password and confirm_password match
     if (req.body.password !== req.body.confirm_password) {
+        req.flash('error', 'Passwords do not match');
         return res.redirect('back'); // Redirect back if passwords don't match
     }
 
@@ -73,11 +78,15 @@ module.exports.create = async function(req, res) {
         if (!existingUser) {
             // If user doesn't exist, create a new user
             const newUser = await User.create(req.body);
+            req.flash('success', 'You have signed up, login to continue!');
             return res.redirect('/users/sign-in'); // Redirect to sign-in page after successful user creation
         } else {
+
+            req.flash('error', "Another account is present on this Email");
             return res.redirect('back'); // Redirect back if user with the provided email already exists
         }
     } catch (error) {
+        req.flash('error', err);
         console.log('Error:', error);
         return res.status(500).send('Internal Server Error'); // Handle the error gracefully with a 500 status
     }
@@ -85,6 +94,7 @@ module.exports.create = async function(req, res) {
 
 // Controller function to handle user session creation (sign in)
 module.exports.createSession = function(req, res){
+    req.flash('success','Logged in Successfully');
     return res.redirect('/');
 }
 
@@ -94,6 +104,7 @@ module.exports.destroySession = function(req, res){
         if (err) {
             console.log("Error while logging out:", err);
         }
+        req.flash('success','You have Logged out!');
         return res.redirect('/');
     });
 }

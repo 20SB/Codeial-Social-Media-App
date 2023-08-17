@@ -18,6 +18,10 @@ const passportLocal = require('./config/passport-local-strategy');
 // Include the MongoStore for session storage
 const MongoStore = require('connect-mongo');
 
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
+
+
 // Use middleware to parse URL-encoded data and cookies
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -56,6 +60,9 @@ app.use(passport.session());
 
 // Custom middleware to set authenticated user
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(customMware.setFlash);
 
 // Use express router for routing
 app.use('/', require('./routes'));

@@ -21,12 +21,17 @@ module.exports.create = async function(req, res) {
             // Save the post to update its comments array
             await post.save();
 
+            req.flash('success', 'Comment published!');
+
             // Redirect back to the home page after successfully creating the comment
             return res.redirect('/');
         }
     } catch (err) {
+
+        req.flash('error', err);
         console.log("error in creating comment:", err);
         // Handle the error in an appropriate way, such as rendering an error page
+        
     }
 };
 
@@ -55,13 +60,17 @@ module.exports.destroy = async function(req, res) {
                 { $pull: { comments: req.params.id } }
             );
 
+            req.flash('success', 'Comment deleted!');
+
             // Redirect back to the previous page after successfully deleting the comment
             return res.redirect('back');
         } else {
+            req.flash('error', 'Unauthorized');
             // If the user is not the owner of the post and not the author of the comment, redirect back
             return res.redirect('back');
         }
     } catch (err) {
+        req.flash('error', err);
         // If an error occurs during the deletion process, log the error
         console.log("Error in deleting comment:", err);
         // Return a 500 Internal Server Error response

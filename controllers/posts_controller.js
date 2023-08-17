@@ -9,10 +9,15 @@ module.exports.create = function(req, res) {
         user: req.user._id
     })
     .then(post => {
+
+        
+        req.flash('success', 'Post published!');
         // Redirect back to the previous page after successfully creating the post
         return res.redirect('back');
     })
     .catch(err => {
+
+        req.flash('error', err);
         console.log('Error in creating post:', err);
         // Handle the error in an appropriate way
     });
@@ -35,13 +40,19 @@ module.exports.destroy = async function(req, res) {
             // Delete all comments associated with the post
             await Comment.deleteMany({ post: req.params.id });
 
+            req.flash('success', 'Post and associated comments deleted!');
+
             // Redirect back to the previous page after successfully deleting the post and its comments
             return res.redirect('back');
         } else {
+
+            req.flash('error', 'You cannot delete this post!');
             // If the user is not the owner of the post, redirect back
             return res.redirect('back');
         }
     } catch (err) {
+
+        req.flash('error', err);
         console.error(err);
         // Return a 500 Internal Server Error response
         return res.status(500).send('Internal Server Error');
