@@ -1,0 +1,36 @@
+<li class="post mini-container">
+    <p>
+      <!-- Display delete link for the post if the user is authenticated and the post belongs to the user -->
+      <% if ((locals.user) && (locals.user.id == post.user.id)) { %>
+        <a href="/posts/destroy/<%= post.id %>">X</a>
+      <% } %>
+      <!-- Display the post author's name -->
+      <%= post.user.name %> <hr>
+      <!-- Display the post content -->
+      <%= post.content %>
+    </p>
+
+    <div class="post-comments">
+      <!-- Display comment form if the user is authenticated -->
+      <% if (locals.user) { %>
+        <form action="/comments/create" method="post" class="comment-form">
+          <!-- Input field for entering a new comment -->
+          <input type="text" name="content" placeholder="Write a comment.." required class="comment-input">
+          <!-- Hidden field to store the post's ID to which the comment is related -->
+          <input type="hidden" name="post" value="<%= post._id %>">
+          <!-- Submit button for adding a new comment -->
+          <input type="submit" value="Add Comment" class="comment-btn">
+        </form>
+      <% } %>
+
+      <div class="post-comments-list">
+        <ul id="post-comment-<%= post._id %>">
+          <% for (comment of post.comments) { %>
+            <!-- Include a partial template for each comment -->
+            <br>
+            <%- include('_comment') -%>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+</li>

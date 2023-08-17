@@ -1,6 +1,7 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 
+// Controller function to create a new comment
 module.exports.create = async function(req, res) {
     try {
         // Find the post by its ID using Mongoose's findById method
@@ -27,5 +28,44 @@ module.exports.create = async function(req, res) {
         console.log("error in creating comment:", err);
         // Handle the error in an appropriate way, such as rendering an error page
     }
-}
+};
+
+// Controller function to delete a comment
+module.exports.destroy = async function(req, res) {
+    try {
+        // Find the comment by its ID using Mongoose's findById method
+        const comment = await Comment.findById(req.params.id);
+
+        // Check if the comment exists
+        if (!comment) {
+            return res.redirect('back');
+        }
+
+        // Find the post to which the comment belongs
+        const post = await Post.findById(comment.post);
+
+        // Check if the user deleting the comment is the (owner of the post or owner of the comment)
+        if (post.user.toString() === req.user.id || comment.user.toString() === req.user.id) {
+            // Delete the comment using the deleteOne method
+            await comment.deleteOne();
+
+            // Remove the comment's reference from the post's comments array
+            await Post.findByIdAndUpdate(
+                comment.post,
+                { $pull: { comments: req.params.id } }
+            );
+
+            // Redirect back to the previous page after successfully deleting the comment
+            return res.redirect('back');
+        } else {
+            // If the user is not the owner of the post and not the author of the comment, redirect back
+            return res.redirect('back');
+        }
+    } catch (err) {
+        // If an error occurs during the deletion process, log the error
+        console.log("Error in deleting comment:", err);
+        // Return a 500 Internal Server Error response
+        return res.status(500).send('Internal Server Error');
+    }
+};
 

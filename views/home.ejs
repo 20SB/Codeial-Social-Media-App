@@ -1,66 +1,45 @@
-<link rel="icon" type="image/png" href="/images/home.png" />
-<link rel="stylesheet" href="/css/home.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/home.png" />
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/css/home.css" />
+  <title>Posts Feed</title>
+</head>
+<body>
+  <section id="feed-post">
+    <h4>Posts</h4>
 
-<section id="feed-post">
-  <h4>Posts</h4>
-
-  <div class="mini-container">
-    <% if(locals.user) { %>
-      <form action="/posts/create" id="new-post-form" method="POST">
+    <div class="mini-container">
+      <% if (locals.user) { %>
+        <!-- New Post Form -->
+        <form action="/posts/create" id="new-post-form" method="POST">
           <textarea
-          name="content"
-          id="new-post-content"
-          cols="30"
-          rows="2"
-          placeholder="What's on your mind, <%= locals.user.name %>? "
-          required
-          class="post-textarea"
+            name="content"
+            id="new-post-content"
+            cols="30"
+            rows="2"
+            placeholder="What's on your mind, <%= locals.user.name %>? "
+            required
+            class="post-textarea"
           ></textarea>
           <input type="submit" value="Post" class="post-btn"/>
-      </form>
-    <% } %>
-  </div>
-  
-  
-
-  <div id="posts-list-container">
-    <ul class="no-bullet-list">
-      <% for(post of posts) { %>
-        <li class="post mini-container">
-            <p>
-              <% if((locals.user) && (locals.user.id == post.user.id)){ %>
-                <a href="/posts/destroy/<%= post.id %>">X</a>
-              <% } %>
-              <%= post.user.name %> <hr>
-              <%= post.content %>
-            </p>
-
-            <div class="post-comments">
-              <% if(locals.user){ %>
-                <form action="/comments/create" method="post" class="comment-form">
-                  <input type="text" name="content" placeholder="Write a comment.." required class="comment-input">
-                  <input type="hidden" name="post" value="<%= post._id %>">
-                  <input type="submit" value="Add Comment" class="comment-btn">
-                </form>
-              <% } %>
-
-              <div class="post-comments-list">
-                <ul id="post-comment-<%= post._id %>">
-                  <% for(comment of post.comments) { %>
-                    <br>
-                    <div class="comment">
-                      <b>
-                        <%= comment.user.name %>
-                      </b>
-                      <br>
-                      <%= comment.content %>
-                    </div>
-                  <% } %>
-                </ul>
-              </div>
-            </div>
-        </li>
+        </form>
       <% } %>
-    </ul>
-  </div>
-</section>
+    </div>
+
+    <!-- Posts List Container -->
+    <div id="posts-list-container">
+      <ul class="no-bullet-list">
+        <% for (post of posts) { %>
+          <!-- Include a partial template for each post -->
+          <%- include('_post') -%>
+        <% } %>
+      </ul>
+    </div>
+  </section>
+</body>
+</html>

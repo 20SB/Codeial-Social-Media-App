@@ -1,0 +1,13 @@
+<div class="comment">
+    <!-- Display the comment author's name in bold -->
+    <b>
+      <%= comment.user.name %>
+    </b>
+    <!-- Display delete link for the comment if the user is authenticated and the comment belongs to the user -->
+    <% if ((locals.user) && ((locals.user.id == comment.user.id) || (locals.user.id == post.user.id))) { %>
+      <a href="/comments/destroy/<%= comment.id %>">X</a>
+    <% } %>
+    <br>
+    <!-- Display the comment content -->
+    <%= comment.content %>
+</div>
