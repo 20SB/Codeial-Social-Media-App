@@ -18,8 +18,6 @@ const passportLocal = require('./config/passport-local-strategy');
 // Include the MongoStore for session storage
 const MongoStore = require('connect-mongo');
 
-// const sassMiddleware = require(node-sass-middleware)
-
 // Use middleware to parse URL-encoded data and cookies
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -47,12 +45,8 @@ app.use(session({
         maxAge: (1000 * 60 * 100)  // Max age of the session cookie (100 minutes)
     },
     store: MongoStore.create({
-        // mongooseConnection: db,  // MongoDB connection used to store sessions
-        // autoRemove: 'interval',  // Remove expired sessions on an interval
-        // autoRemoveInterval: 60 * 24  // Interval in minutes (removes expired sessions daily)
-        mongoUrl: "mongodb://127.0.0.1/codeial-dev",
-        autoRemove: 'disabled',
-        
+        mongoUrl: "mongodb://127.0.0.1/codeial-dev", // URL of the MongoDB instance
+        autoRemove: 'disabled', // Disabling auto-removing expired sessions
     })
 }));
 

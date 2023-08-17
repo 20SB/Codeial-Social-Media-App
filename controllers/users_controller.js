@@ -1,12 +1,14 @@
+// Import the User model
 const User = require('../models/user');
 
-module.exports.profile = function(req,res){
+// Controller function to render user profile page
+module.exports.profile = function(req, res){
     return res.render('user_profile', {
         title: "User profile",
     });
-    // res.end('<h1>Hello, This is User Profile....</h1>');
 }
 
+// Controller function to render sign-up page
 module.exports.signUp = function(req, res){
     if(req.isAuthenticated()){
         return res.redirect('/users/profile');
@@ -16,6 +18,7 @@ module.exports.signUp = function(req, res){
     });
 }
 
+// Controller function to render sign-in page
 module.exports.signIn = function(req, res){
     if(req.isAuthenticated()){
         return res.redirect('/users/profile');
@@ -25,7 +28,7 @@ module.exports.signIn = function(req, res){
     });
 }
 
-// get the sign Up data
+// Controller function to create a new user
 module.exports.create = async function(req, res) {
     // Check if password and confirm_password match
     if (req.body.password !== req.body.confirm_password) {
@@ -49,14 +52,12 @@ module.exports.create = async function(req, res) {
     }
 }
 
-
-
-// get the sign In data
+// Controller function to handle user session creation (sign in)
 module.exports.createSession = function(req, res){
     return res.redirect('/');
 }
 
-// get the sign Out data
+// Controller function to handle user session destruction (sign out)
 module.exports.destroySession = function(req, res){
     req.logout(function(err) {
         if (err) {

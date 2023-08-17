@@ -1,4 +1,7 @@
+// Import the mongoose library
 const mongoose = require("mongoose");
+
+// Define the schema for the Post model
 const postSchema = new mongoose.Schema({
   content: {
     type: String,
@@ -6,16 +9,19 @@ const postSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User" // This field references the User model
   },
-  // include the array of all comments in this post schema itself
-  comments:[{
+  // Include the array of all comments in this post schema itself
+  comments: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
+    ref: 'Comment' // This field references the Comment model
   }]
-},{
-    timestamps:true
+}, {
+    timestamps: true // This will automatically add `createdAt` and `updatedAt` fields
 });
 
+// Create the Post model using the postSchema
 const Post = mongoose.model('Post', postSchema);
+
+// Export the Post model to be used in other parts of the application
 module.exports = Post;

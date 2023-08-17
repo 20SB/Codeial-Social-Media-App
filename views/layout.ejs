@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/layout.css"> <!-- Link to the layout-specific stylesheet -->
     <script
       src="https://kit.fontawesome.com/905c31243a.js"
       crossorigin="anonymous"
-    ></script>
-    <%- style %>
-    <title><%= title %></title>
+    ></script> <!-- Include the FontAwesome script for icons -->
+    <%- style %> <!-- Injected style content, possibly for page-specific styles -->
+    <title><%= title %></title> <!-- Page title that you can dynamically set -->
 </head>
 <body>
-    <%- include('_header'); %>
+    <%- include('_header'); %> <!-- Include the header content -->
     <div id="body-container">
-      <%- body %>
+      <%- body %> <!-- Injected content, typically the main content of the page -->
     </div>
     
+    <!-- Commented out: include footer content -->
     <!-- <%- include('_footer'); %> -->
-    <%- script %>
+    
+    <%- script %> <!-- Injected script content, possibly for page-specific scripts -->
 </body>
 </html>

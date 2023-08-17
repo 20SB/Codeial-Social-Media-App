@@ -1,28 +1,28 @@
+// Import the mongoose library
 const mongoose = require('mongoose');
 
-// Define a schema for the 'Contact' model
+// Define a schema for the 'User' model
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true // Ensures that each email is unique in the database
     },
     password: {
         type: String,
         required: true,
-        unique: true
+        unique: true // Ensures that each password is unique in the database (not typical for passwords)
     },
     name: {
         type: String,
         required: true
     }
-    
 }, {
-    timestamps: true
+    timestamps: true // Automatically adds 'createdAt' and 'updatedAt' fields
 });
 
-// Create a model or collection named 'user' using the defined schema
+// Create a model named 'User' using the userSchema
 const User = mongoose.model('User', userSchema);
 
-// Export the 'user' model or collection so it can be used in other files
+// Export the 'User' model to be used in other parts of the application
 module.exports = User;
