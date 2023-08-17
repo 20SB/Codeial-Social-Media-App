@@ -1,45 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/images/home.png" />
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="/css/home.css" />
-  <title>Posts Feed</title>
-</head>
-<body>
-  <section id="feed-post">
-    <h4>Posts</h4>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/images/home.png" />
+<!-- Stylesheet -->
+<link rel="stylesheet" href="/css/home.css" />
 
-    <div class="mini-container">
-      <% if (locals.user) { %>
-        <!-- New Post Form -->
-        <form action="/posts/create" id="new-post-form" method="POST">
-          <textarea
-            name="content"
-            id="new-post-content"
-            cols="30"
-            rows="2"
-            placeholder="What's on your mind, <%= locals.user.name %>? "
-            required
-            class="post-textarea"
-          ></textarea>
-          <input type="submit" value="Post" class="post-btn"/>
-        </form>
-      <% } %>
-    </div>
+<section id="feed-post">
+  <h4>Posts</h4>
 
-    <!-- Posts List Container -->
-    <div id="posts-list-container">
-      <ul class="no-bullet-list">
-        <% for (post of posts) { %>
-          <!-- Include a partial template for each post -->
-          <%- include('_post') -%>
-        <% } %>
-      </ul>
-    </div>
-  </section>
-</body>
-</html>
+  <div class="mini-container">
+    <% if (locals.user) { %>
+    <!-- New Post Form -->
+    <form action="/posts/create" id="new-post-form" method="POST">
+      <textarea
+        name="content"
+        id="new-post-content"
+        cols="30"
+        rows="2"
+        placeholder="What's on your mind, <%= locals.user.name %>? "
+        required
+        class="post-textarea"
+      ></textarea>
+      <input type="submit" value="Post" class="post-btn" />
+    </form>
+    <% } %>
+  </div>
+
+  <!-- Posts List Container -->
+  <div id="posts-list-container">
+    <ul class="no-bullet-list">
+      <% for (post of posts) { %>
+      <!-- Include a partial template for each post -->
+      <%- include('_post') -%> <% } %>
+    </ul>
+  </div>
+</section>
+
+
+<!-- Friends List -->
+<section id="user-friends">
+  <h4>Friends</h4>
+  <% for(u of all_users) { %>
+    <p>
+      <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+    </p>
+  <% } %>
+</section>

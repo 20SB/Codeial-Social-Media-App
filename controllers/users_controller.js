@@ -2,11 +2,25 @@
 const User = require('../models/user');
 
 // Controller function to render user profile page
-module.exports.profile = function(req, res){
-    return res.render('user_profile', {
-        title: "User profile",
-    });
+module.exports.profile = async function(req, res) {
+    try {
+        // Fetch user data by their ID from the request parameters and wait for the promise to resolve
+        const user = await User.findById(req.params.id).exec();
+
+        // Render the 'user_profile' view with the fetched user data
+        return res.render('user_profile', {
+            title: "User profile",
+            profile_user: user
+        });
+    } catch (err) {
+        // If an error occurs during the user data fetching or rendering, log the error
+        console.log("Error in fetching user:", err);
+        
+        // Handle the error in an appropriate way, such as rendering an error page
+    }
 }
+
+
 
 // Controller function to render sign-up page
 module.exports.signUp = function(req, res){

@@ -6,7 +6,7 @@ const passport = require('passport');
 const usersController = require('../controllers/users_controller');
 
 // Route to user profile page, accessible only if authenticated
-router.get('/profile', passport.checkAuthentication, usersController.profile);
+router.get('/profile/:id', passport.checkAuthentication, usersController.profile);
 
 // Route to sign-up page
 router.get('/sign-up', usersController.signUp);
