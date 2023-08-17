@@ -15,8 +15,25 @@ module.exports.profile = async function(req, res) {
     } catch (err) {
         // If an error occurs during the user data fetching or rendering, log the error
         console.log("Error in fetching user:", err);
-        
         // Handle the error in an appropriate way, such as rendering an error page
+    }
+}
+
+// Controller function to update user profile
+module.exports.update = function(req, res) {
+    if (req.user.id == req.params.id) {
+        // Find the user by their ID and update their information with the data in the request body
+        User.findByIdAndUpdate(req.params.id, req.body)
+            .then(() => {
+                // Redirect back to the previous page after the update
+                return res.redirect('back');
+            })
+            .catch((err) => {
+                console.log("Error in updating user:", err);
+                // Handle the error in an appropriate way, such as rendering an error page
+            });
+    } else {
+        return res.status(401).send('Unauthorized');
     }
 }
 
