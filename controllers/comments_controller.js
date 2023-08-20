@@ -9,17 +9,36 @@ module.exports.create = async function(req, res) {
 
         if (post) {
             // Create a new comment using the Comment model
-            const comment = await Comment.create({
+            let comment = await Comment.create({
                 content: req.body.content,
                 post: req.body.post,
                 user: req.user._id
             });
+
+        
 
             // Push the created comment's reference to the post's comments array
             post.comments.push(comment);
 
             // Save the post to update its comments array
             await post.save();
+
+            // Check if the request is an AJAX request.
+        if (req.xhr){
+            console.log("ajax request found");
+            // Populate the post and user fields of the comment
+            comment = await comment.populate(['user','post']);
+
+            // Now you can access the populated post and user fields within the comment
+            // console.log(comment);
+            // If AJAX, send JSON response with new comment and success message.
+            return res.status(200).json({
+                data: {
+                    comment: comment
+                },
+                message: "Comment created!"
+            });
+        }
 
             req.flash('success', 'Comment published!');
 

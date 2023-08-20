@@ -20,6 +20,7 @@
 
                     let newPost = newPostDom(data.data.post);
                     $("#posts-list-container>ul").prepend(newPost);
+                    deletePost($(' .delete-post-button', newPost), data);
                 },
                 error: function (error) {
                     // Callback on error response.
@@ -33,7 +34,7 @@
     let newPostDom = function (post) {
         return $(`<li class="post mini-container" id="post-${post._id}">
                     <p>
-                        <a class="delete-post-button" href="/posts/destroy/${post.id}">X</a>
+                        <a class="delete-post-button" href="/posts/destroy/${post._id}">X</a>
                     
                     <!-- Display the post author's name -->
                     ${post.user.name} <hr>
@@ -62,6 +63,22 @@
                     </div>
                 </li>`);
     };
+
+    // method to delete a post from DOM
+    let deletePost = function(deleteLink, data){
+        $(deleteLink).click(function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success : function(){
+                    $(`#post-${data.data.post._id}`).remove();
+                },error: function(error){
+                    console.log(error.responseText);
+                }
+            })
+        })
+    }
 
     // Call the createPost function to set up the form submission handling.
     createPost();

@@ -15,6 +15,7 @@ module.exports.home = async function (req, res) {
                 populate: {
                     path: "user",
                 },
+                options: { sort: { createdAt: -1 } }, // Sort comments by createdAt in descending order
             })
             .exec(); // Use .exec() to execute the query and return a promise
 
