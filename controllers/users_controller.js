@@ -1,5 +1,7 @@
 // Import the User model
 const User = require('../models/user');
+const fs = require('fs');
+const path = require('path');
 
 // Controller function to render user profile page
 module.exports.profile = async function(req, res) {
@@ -37,6 +39,15 @@ module.exports.update = async function(req, res) {
                 user.email = req.body.email;
 
                 if (req.file) {
+
+                    // if avatar is already present delete the avatar
+                    if(user.avatar){
+                        try {
+                            fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+                        } catch (unlinkErr) {
+                            console.log('Error deleting existing avatar:', unlinkErr);
+                        }
+                    }
                     // Save the path of the uploaded file into the avatar field in the user
                     user.avatar = User.avatarPath + '/' + req.file.filename;
                 }
