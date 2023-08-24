@@ -20,26 +20,50 @@ module.exports.profile = async function(req, res) {
 }
 
 // Controller function to update user profile
-module.exports.update = function(req, res) {
+module.exports.update = async function(req, res) {
+    // Check if the authenticated user's ID matches the requested user's ID
     if (req.user.id == req.params.id) {
-        // Find the user by their ID and update their information with the data in the request body
-        User.findByIdAndUpdate(req.params.id, req.body)
-            .then(() => {
-                req.flash('success', 'Updated!');
-                // Redirect back to the previous page after the update
-                return res.redirect('back');
-            })
-            .catch((err) => {
-                req.flash('error', err);
-                console.log("Error in updating user:", err);
-                // Handle the error in an appropriate way, such as rendering an error page
-            });
-    } else {
+        try {
+            // Find the user by the provided ID
+            let user = await User.findById(req.params.id);
+            
+            // Use Multer middleware to handle file uploads (avatars in this case)
+            User.uploadedAvatar(req, res, function(err) {
+                if (err) {
+                    console.log('***** MULTER Error: ', err);
+                }
+                // Update user properties from request body
+                user.name = req.body.name;
+                user.email = req.body.email;
 
+                if (req.file) {
+                    // Save the path of the uploaded file into the avatar field in the user
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+                
+                // Flash a success message
+                req.flash('success', 'Updated!');
+                
+                // Save the user changes to the database
+                user.save();
+                
+                // Redirect the user back to the previous page
+                return res.redirect('back');
+            });
+
+        } catch(err) {
+            // Handle errors if any occur during the process
+            req.flash('error', err);
+            console.log("Error in updating user:", err);
+        }
+
+    } else {
+        // If the authenticated user's ID doesn't match the requested user's ID
         req.flash('error', 'Unauthorized!');
         return res.status(401).send('Unauthorized');
     }
 }
+
 
 
 

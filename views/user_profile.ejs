@@ -1,20 +1,18 @@
 <!-- Set the shortcut icon for the website -->
 <link rel="shortcut icon" href="/images/profile.png" type="image/x-icon">
 
-<!-- Display a level 1 heading with dynamic title -->
-<h1>Hello, You are on <%= title %> page</h1>
-
-<!-- Display a level 3 heading with the website name and dynamic title -->
-<h3>Codeial / <%= title %></h3>
+<!-- Show the Image -->
+<img src="<%= profile_user.avatar %>" alt="<%= profile_user.name %>" width="100">
 
 
 
 
 <% if(user.id == profile_user.id){ %>
     <!-- if user matches then show the form -->
-    <form action="/users/update/<%= profile_user.id %>" method="POST">
+    <form action="/users/update/<%= profile_user.id %>" method="POST" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
         <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email %>" required>
+        <input type="file" name="avatar" placeholder="Profile picture">
         <input type="submit" value="Update">
     </form>
 <% } else{ %>

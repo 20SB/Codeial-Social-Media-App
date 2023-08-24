@@ -26,6 +26,9 @@ const customMware = require('./config/middleware');
 app.use(express.urlencoded());
 app.use(cookieParser());
 
+// make the uploads path availabele to to the browser
+app.use('/uploads',express.static(__dirname+ '/uploads'));
+
 // Serve static files from the 'assets' directory
 app.use(express.static('./assets'));
 
