@@ -16,6 +16,9 @@ router.use('/posts', require('./posts'));
 // Use the comments router for handling comment-related routes
 router.use('/comments', require('./comments'));
 
+// Use the api router for handling api-related routes
+router.use('/api', require('./api'));
+
 // You can add more routers for other parts of your application
 
 // Export the main router to be used in your application
