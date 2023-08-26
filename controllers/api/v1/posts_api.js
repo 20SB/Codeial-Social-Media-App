@@ -34,7 +34,7 @@ module.exports.destroy = async function (req, res) {
             });
         }
 
-        // if (post.user.toString() === req.user.id) {
+        if (post.user.toString() === req.user.id) {
 
             // Delete the post using the deleteOne method
             await post.deleteOne();
@@ -46,11 +46,11 @@ module.exports.destroy = async function (req, res) {
                 message: "Post and associated comments are deleted successfully! "
             });
 
-        // } else {
-        //     req.flash("error", "You cannot delete this post!");
-        //     // If the user is not the owner of the post, redirect back
-        //     return res.redirect("back");
-        // }
+        } else {
+            return res.json(401,{
+                message: "You can not delete this post"
+            });
+        }
     } catch (err) {
 
         return res.json(500,{
