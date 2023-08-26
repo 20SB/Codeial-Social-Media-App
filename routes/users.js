@@ -27,5 +27,15 @@ router.post('/create-session', passport.authenticate(
 // Route to sign out and destroy the session
 router.get('/sign-out', usersController.destroySession);
 
+
+// When the user accesses this route, initiate the Google OAuth2 authentication process
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// After successful authentication with Google, this route is called as a callback
+// If authentication fails, redirect to '/users/sign-in'
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/users/sign-in' }), usersController.createSession);
+
+
+
 // Export the router to be used in the main router (index.js)
 module.exports = router;

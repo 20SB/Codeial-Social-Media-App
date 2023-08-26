@@ -16,6 +16,9 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const passportJWT = require('./config/passport-jwt-startegy');
 
+// import the configuration you've defined for the Google OAuth2 strategy using Passport
+const passportGoogle = require('./config/passport-google-oauth2-startegy');
+
 // Include the MongoStore for session storage
 const MongoStore = require('connect-mongo');
 
