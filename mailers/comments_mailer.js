@@ -3,14 +3,15 @@ const nodeMailer = require('../config/nodemailer');
 
 // Exported function to send a new comment email notification
 exports.newComment = (comment) => {
-    console.log('Inside new comment mailer', comment);
+    // Render the email content using the provided comment data and template
+    let htmlString = nodeMailer.renderTemplate({ comment: comment }, '/comments/new_comment.ejs');
 
     // Use the transporter to send an email
     nodeMailer.transporter.sendMail({
         from: 'Codeial', // Sender's name or email
         to: comment.user.email, // Recipient's email
         subject: 'New Comment Published!', // Email subject
-        html: '<h1> Yup, Your Comment Published </h1>' // Email content in HTML format
+        html: htmlString // Rendered email content from the template
     }, (err, info) => {
         if (err) {
             console.log('Error in sending mail', err);
