@@ -1,5 +1,6 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
+const commentsMailer = require('../mailers/comments_mailer');
 
 // Controller function to create a new comment
 module.exports.create = async function(req, res) {
@@ -9,7 +10,7 @@ module.exports.create = async function(req, res) {
 
         if (post) {
             // Create a new comment using the Comment model
-            const comment = await Comment.create({
+            let comment = await Comment.create({
                 content: req.body.content,
                 post: req.body.post,
                 user: req.user._id
@@ -20,6 +21,12 @@ module.exports.create = async function(req, res) {
 
             // Save the post to update its comments array
             await post.save();
+
+            // populate the user specillay name and email of user
+            comment = await comment.populate('user', 'name email');
+
+            // send email notification about new comment using commentsMailer module's newComment func
+            commentsMailer.newComment(comment);
 
             req.flash('success', 'Comment published!');
 

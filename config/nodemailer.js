@@ -1,36 +1,46 @@
+// Import the 'nodemailer' library for sending emails
 const nodemailer = require('nodemailer');
+
+// Import the 'ejs' library for rendering HTML templates
 const ejs = require('ejs');
+
+// Import the 'path' module for handling file paths
 const path = require('path');
 
+// Create a nodemailer transporter configuration object
 let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
+    service: 'gmail', // The email service provider
+    host: 'smtp.gmail.com', // The SMTP server host
+    port: 587, // The port number for SMTP communication
+    secure: false, // Use TLS for secure communication
     auth: {
-        user: 'subhabiswal573@gmail.com',
-        pass: '20subha@100'
+        user: 'subhabiswal573@gmail.com', // Sender's email address
+        pass: 'jkbxqvdydypxgaoz' // Sender's email password or app password
     }
 });
 
+// Define a function to render an email template
 let renderTemplate = (data, relativePath) => {
     let mailHTML;
+
+    // Render the ejs template using the provided data
     ejs.renderFile(
-        path.join('__dirname', '../views/mailers', relativePath),
-        data,
-        function(err, template){
-            if(err){
+        path.join('__dirname', '../views/mailers', relativePath), // Path to the template
+        data, // Data to be injected into the template
+        function(err, template) {
+            if (err) {
                 console.log('error in rendering template', err);
                 return;
             }
             mailHTML = template;
         }
-    )
+    );
 
-    return mailHTML;
-}
+    return mailHTML; // Return the rendered template as HTML
+};
 
+// Export the transporter configuration and renderTemplate function
 module.exports = {
-    transporter: transporter,
-    renderTemplate: renderTemplate
-}
+    transporter: transporter, // Export the transporter configuration
+    renderTemplate: renderTemplate // Export the renderTemplate function
+};
