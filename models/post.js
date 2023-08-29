@@ -15,7 +15,14 @@ const postSchema = new mongoose.Schema({
   comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment' // This field references the Comment model
-  }]
+  }],
+  // Include the array of all likes in this post schema itself
+  likes: [
+    {
+      type : mongoose.Schema.Types.ObjectId ,
+      ref: 'Like'
+    }
+  ]
 }, {
     timestamps: true // This will automatically add `createdAt` and `updatedAt` fields
 });
