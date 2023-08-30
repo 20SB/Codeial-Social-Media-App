@@ -15,8 +15,12 @@ module.exports.home = async function (req, res) {
                 populate: {
                     path: "user",
                 },
-            })
-            .exec(); // Use .exec() to execute the query and return a promise
+                populate: {
+                    path: "likes",
+                }
+            }).populate('comments')
+            .populate('likes');
+    
 
         // Fetch all users
         const users = await User.find({}).exec();

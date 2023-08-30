@@ -50,6 +50,10 @@ module.exports.destroy = async function (req, res) {
         }
 
         if (post.user.toString() === req.user.id) {
+            
+            await Like.deleteMany({likeable: post, onModel: 'Post'});
+            await Like.deleteMany({_id: {$in: post.comments}});
+
             // Delete the post using the deleteOne method
             await post.deleteOne();
 
