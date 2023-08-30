@@ -30,7 +30,7 @@ module.exports.toggleLike = async function(req, res) {
             likeable.likes.pull(existingLike._id); // Remove like from likes array of likeable object
             likeable.save(); // Save the updated likeable object
 
-            existingLike.remove(); // Delete the existing like document
+            existingLike.deleteOne(); // Delete the existing like document
             deleted = true; // Set deleted to true
         } else {
             // If like doesn't exist, create a new like
