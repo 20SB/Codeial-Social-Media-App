@@ -35,8 +35,18 @@ module.exports.create = async function(req, res) {
                     console.log('error in creating a queue', err);
                     return;
                 }
-                console.log('job queued',job.id);
+                // console.log('job queued',job.id);
             });
+
+            // Check if the request is an AJAX request.
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment: comment
+                    },
+                    message: "Post created!"
+                });
+            }
 
             req.flash('success', 'Comment published!');
 
@@ -76,6 +86,16 @@ module.exports.destroy = async function(req, res) {
                 comment.post,
                 { $pull: { comments: req.params.id } }
             );
+
+            // send the comment id which was deleted back to the views
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Post deleted"
+                });
+            }
 
             req.flash('success', 'Comment deleted!');
 

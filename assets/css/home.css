@@ -51,6 +51,11 @@
     max-height: 200px;
     overflow-y: scroll;
 }
+.comments-list{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+}
 .comment{
     background-color: aliceblue;
     border-radius: 10px;

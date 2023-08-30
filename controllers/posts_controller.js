@@ -14,6 +14,10 @@ module.exports.create = async function(req, res){
         
         // Check if the request is an AJAX request.
         if (req.xhr){
+            // if we want to populate just the name of the user (we'll not want to send the password in the API), this is how we do it!
+            post = await post.populate('user', 'name');
+            // console.log('post',post)
+
             // If AJAX, send JSON response with new post and success message.
             return res.status(200).json({
                 data: {
@@ -51,6 +55,16 @@ module.exports.destroy = async function (req, res) {
 
             // Delete all comments associated with the post
             await Comment.deleteMany({ post: req.params.id });
+
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        post_id: req.params.id
+                    },
+                    message: "Post deleted"
+                });
+            }
+
 
             req.flash("success", "Post and associated comments deleted!");
 
