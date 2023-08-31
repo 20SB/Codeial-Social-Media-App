@@ -25,6 +25,11 @@ const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 
+// setup the chat server to be used with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets  = require('./config/chat_socket').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat Server is listening on 5000');
 
 // Use middleware to parse URL-encoded data and cookies
 app.use(express.urlencoded());
