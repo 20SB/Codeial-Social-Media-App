@@ -26,5 +26,9 @@ module.exports.chatSockets = function(socketServer) {
             // Emit a 'user_joined' event to all sockets in the specified chatroom
             io.in(data.chatroom).emit('user_joined', data);
         });
+
+        socket.on('send_message', function(data){
+            io.in(data.chatroom).emit('receive_message', data);
+        });
     });
 };
