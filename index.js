@@ -3,6 +3,13 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Allow all origins
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 // Include layouts using its library
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
@@ -25,8 +32,10 @@ const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 
+
+
 // setup the chat server to be used with socket.io
-const chatServer = require('http').Server(app);
+const chatServer = require('http').createServer(app);
 const chatSockets  = require('./config/chat_socket').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('chat Server is listening on 5000');
