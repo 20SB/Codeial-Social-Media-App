@@ -4,14 +4,16 @@ const googleStrategy = require('passport-google-oauth').OAuth2Strategy; // Impor
 const crypto = require('crypto'); // Import crypto library for generating random passwords
 const User = require('../models/user'); // Import the User model from a specific location
 
+const env = require('./environment');
+
 // Import GoogleStrategy from passport-google-oauth20 for Google login
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 // Configure Google OAuth2 authentication strategy
 passport.use(new GoogleStrategy({
-    clientID: '32813371257-q1lotdj0n55ka4j2snl32fm1dgkqibir.apps.googleusercontent.com', // Google client ID
-    clientSecret: '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', // Google client secret
-    callbackURL: "http://localhost:8000/users/auth/google/callback", // Callback URL after successful authentication
+    clientID: env.google_client_id, // Google client ID
+    clientSecret: env.google_client_secret, // Google client secret
+    callbackURL: env.google_call_back_url, // Callback URL after successful authentication
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         // Find a user based on the email from the Google profile

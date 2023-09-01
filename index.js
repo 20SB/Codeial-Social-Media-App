@@ -1,4 +1,7 @@
 const express = require('express');
+
+const env = require('./config/environment');
+
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
@@ -40,6 +43,8 @@ const chatSockets  = require('./config/chat_socket').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('chat Server is listening on 5000');
 
+const path = require('path');
+
 // Use middleware to parse URL-encoded data and cookies
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -48,7 +53,7 @@ app.use(cookieParser());
 app.use('/uploads',express.static(__dirname+ '/uploads'));
 
 // Serve static files from the 'assets' directory
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 
 // Extract styles and scripts from subpages into layout
 app.set('layout extractStyles', true);
@@ -63,7 +68,7 @@ app.set('views', './views');
 // Set up session configuration
 app.use(session({
     name: 'codeial',  // Name of the session cookie
-    secret: 'blahsomething',  // Secret key used for session encryption
+    secret: env.session_cookie_key,  // Secret key used for session encryption
     saveUninitialized: false,
     resave: false,
     cookie: {

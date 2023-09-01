@@ -1,6 +1,8 @@
 // Import the 'nodemailer' library for sending emails
 const nodemailer = require('nodemailer');
 
+const env = require('./environment');
+
 // Import the 'ejs' library for rendering HTML templates
 const ejs = require('ejs');
 
@@ -8,16 +10,7 @@ const ejs = require('ejs');
 const path = require('path');
 
 // Create a nodemailer transporter configuration object
-let transporter = nodemailer.createTransport({
-    service: 'gmail', // The email service provider
-    host: 'smtp.gmail.com', // The SMTP server host
-    port: 587, // The port number for SMTP communication
-    secure: false, // Use TLS for secure communication
-    auth: {
-        user: 'subhabiswal573@gmail.com', // Sender's email address
-        pass: 'jkbxqvdydypxgaoz' // Sender's email password or app password
-    }
-});
+let transporter = nodemailer.createTransport(env.smtp);
 
 // Define a function to render an email template
 let renderTemplate = (data, relativePath) => {
