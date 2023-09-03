@@ -23,9 +23,27 @@ const development = {
 
 
 const production =  {
-    name: 'production'
+    name: 'production',
+    asset_path: process.env.CODEIAL_ASSET_PATH,
+    session_cookie_key: process.env.CODEIAL_SESSION_COOKIE_KEY,
+    db: process.env.CODEIAL_DB,
+    smtp: {
+        service: 'gmail', // The email service provider
+        host: 'smtp.gmail.com', // The SMTP server host
+        port: 587, // The port number for SMTP communication
+        secure: false, // Use TLS for secure communication
+        auth: {
+            user: process.env.CODEIAL_GMAIL_USERNAME, // Sender's email address
+            pass: process.env.CODEIAL_GMAIL_PASSWORD // Sender's email password or app password
+        }
+    },
+    google_client_id: process.env.CODEIAL_GOOGLE_CLIENT_ID,
+    google_client_secret: process.env.CODEIAL_GOOGLE_CLIENT_SECRET,
+    google_call_back_url: process.env.CODEIAL_GOOGLE_CALL_BACK_URL ,
+    jwt_secret: process.env.CODEIAL_JWT_SECRET
 }
 
 
-
-module.exports = development;
+// module.exports = development
+module.exports = production
+// module.exports = eval(process.env.CODEIAL_ENVIRONMENT) == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT);

@@ -1,7 +1,7 @@
 const express = require('express');
 
 const env = require('./config/environment');
-
+// console.log("path: ",eval(process.env.CODEIAL_ENVIRONMENT) == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT));
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
@@ -101,3 +101,4 @@ app.listen(port, function(err){
     }
     console.log(`Server is running on port : ${port}`);
 });
+
