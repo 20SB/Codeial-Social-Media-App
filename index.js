@@ -1,6 +1,7 @@
 const express = require('express');
 
 const env = require('./config/environment');
+const logger = require('morgan');
 // console.log("path: ",eval(process.env.CODEIAL_ENVIRONMENT) == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT));
 const cookieParser = require('cookie-parser');
 const app = express();
@@ -51,6 +52,8 @@ app.use(cookieParser());
 
 // make the uploads path availabele to to the browser
 app.use('/uploads',express.static(__dirname+ '/uploads'));
+
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 // Serve static files from the 'assets' directory
 app.use(express.static(env.asset_path));

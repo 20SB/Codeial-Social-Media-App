@@ -12,7 +12,7 @@ let opts = {
     secretOrKey: env.jwt_secret // Secret key to verify JWT signature
 }
 
-console.log(env);
+// console.log(env);
 
 // Create a new JWT authentication strategy
 passport.use(new JWTStrategy(opts, async function(jwtPayload, done) {
