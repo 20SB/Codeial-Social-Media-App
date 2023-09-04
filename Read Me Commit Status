@@ -1,0 +1,7 @@
+Error:
+gulp build, includes only js and images to rev-manifest file
+if gulp css is performed after gulp build, css get added to rev-manifest but image paths are deleted from it
+
+if its manually added then everything is fine except:
+
+home favicon is not getting added, instead if its replaced by profile image then its showing, and also there is no problem in home image as image can be viewed using image tag

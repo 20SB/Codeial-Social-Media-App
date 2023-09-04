@@ -8,5 +8,9 @@
   "js/chat_engine.js": "js/chat_engine-8d7fc74a0c.js",
   "js/home_post_comments.js": "js/home_post_comments-651bca017f.js",
   "js/home_posts.js": "js/home_posts-eac91abc9f.js",
-  "js/toggle_likes.js": "js/toggle_likes-dd192ead90.js"
+  "js/toggle_likes.js": "js/toggle_likes-dd192ead90.js",
+  "images/home.png": "images/home-69671ab334.png",
+  "images/profile-pic.png": "images/profile-pic-3187e673da.png",
+  "images/profile.png": "images/profile-3ac75306be.png",
+  "images/wallpaper.jpg": "images/wallpaper-92df6c65fe.jpg"
 }
