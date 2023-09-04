@@ -2,9 +2,12 @@ const express = require('express');
 
 const env = require('./config/environment');
 const logger = require('morgan');
+
+
 // console.log("path: ",eval(process.env.CODEIAL_ENVIRONMENT) == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT));
 const cookieParser = require('cookie-parser');
 const app = express();
+require('./config/view-helpers')(app);
 const port = 8000;
 
 app.use((req, res, next) => {
@@ -57,6 +60,7 @@ app.use(logger(env.morgan.mode, env.morgan.options));
 
 // Serve static files from the 'assets' directory
 app.use(express.static(env.asset_path));
+console.log(env.asset_path);
 
 // Extract styles and scripts from subpages into layout
 app.set('layout extractStyles', true);
